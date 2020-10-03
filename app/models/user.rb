@@ -7,4 +7,15 @@ class User < ApplicationRecord
   has_one :doctor
   has_one :patient
 
+  accepts_nested_attributes_for :patient
+  accepts_nested_attributes_for :doctor
+
+  after_initialize do
+    if new_record? && self.user_type == 'doctor' && doctor.blank?
+      build_doctor
+    elsif
+      new_record? && self.user_type == 'patient' && patient.blank?
+    end
+  end
+
 end
