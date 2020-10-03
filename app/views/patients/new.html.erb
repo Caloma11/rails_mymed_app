@@ -40,16 +40,14 @@
 
   <%= f.input :user_type,
                 required: true,
-                input_html: {value: "doctor"}, as: :hidden %>
+                input_html: {value: "patient"}, as: :hidden %>
   </div>
 
-    <% resource.build_doctor if resource.doctor.nil?%>
-    <%= f.fields_for :doctor do |doctor_form| %>
-    <%= doctor_form.input :medical_licence_number %>
-    <%= doctor_form.input :country_of_doctor_licence, :as => :string %>
-    <%= doctor_form.input :clinic_of_practice %>
-    <%= doctor_form.input :address_of_clinic_string %>
-  <% end %>
+    <% resource.build_patient if resource.patient.nil?%>
+    <%= f.fields_for :patient do |patient_form| %>
+      <%= patient_form.input :medical_history %>
+      <%= patient_form.input :moms_name %>
+    <% end %>
 
   <div class="form-actions">
     <%= f.button :submit, "Sign up" %>

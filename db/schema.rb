@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_102817) do
+ActiveRecord::Schema.define(version: 2020_10_03_050640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,27 +57,10 @@ ActiveRecord::Schema.define(version: 2020_10_01_102817) do
   end
 
   create_table "patients", force: :cascade do |t|
-    t.string "home_address", null: false
-    t.string "allergies", default: "none", null: false
+    t.string "medical_history"
+    t.string "moms_name"
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_patients_on_user_id"
-  end
-
-  create_table "prescriptions", force: :cascade do |t|
-    t.bigint "medicine_id", null: false
-    t.text "dose_per_serving", null: false
-    t.decimal "doses_per_day", null: false
-    t.decimal "number_of_days", null: false
-    t.string "comment", null: false
-    t.bigint "consultation_id", null: false
-    t.bigint "order_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["consultation_id"], name: "index_prescriptions_on_consultation_id"
-    t.index ["medicine_id"], name: "index_prescriptions_on_medicine_id"
-    t.index ["order_id"], name: "index_prescriptions_on_order_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -100,10 +83,6 @@ ActiveRecord::Schema.define(version: 2020_10_01_102817) do
 
   add_foreign_key "consultations", "doctors"
   add_foreign_key "consultations", "patients"
-  add_foreign_key "doctors", "users"
   add_foreign_key "orders", "consultations"
   add_foreign_key "patients", "users"
-  add_foreign_key "prescriptions", "consultations"
-  add_foreign_key "prescriptions", "medicines"
-  add_foreign_key "prescriptions", "orders"
 end

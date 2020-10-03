@@ -11,7 +11,11 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :doctor
 
   after_initialize do
-    build_doctor if new_record? && self.user_type == 'doctor'
+    if new_record? && self.user_type == 'doctor' && doctor.blank?
+      build_doctor
+    elsif
+      new_record? && self.user_type == 'patient' && patient.blank?
+    end
   end
 
 end
